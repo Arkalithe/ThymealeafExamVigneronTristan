@@ -24,15 +24,19 @@ body {
 .grid-header {
     grid-column: span 12;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    padding-block: 10px;
     background-color: #1e90ff;
     color: white;
-    padding: 8px 15px;
     font-size: 1.2rem;
     width: 100%;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    height: auto;
+}
+
+.grid-header div {
+    display: flex;
+    align-items: center;
 }
 
 header.grid-header img {
@@ -58,9 +62,9 @@ header.grid-header div {
     grid-column: span 12;
     background-color: #2c3e50;
     color: white;
-    padding: 20px;
     text-align: center;
     font-size: 1rem;
+    padding-block: 20px;
     width: 100%;
     box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
     position: relative;
@@ -72,7 +76,6 @@ header.grid-header div {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
     background-color: #fff;
     height: 100%;
 }
@@ -84,52 +87,68 @@ header.grid-header div {
 }
 
 .title-facture {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     font-weight: bold;
+    color: #333;
+    margin-bottom: 25px;
 }
-
 .table-wrapper {
     width: 100%;
 }
-
 table {
     width: 100%;
     border-collapse: collapse;
-    background-color: white;
     border-radius: 8px;
-    text-align: center;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
 }
 
 thead th {
     background-color: #1e90ff;
     color: white;
-    padding: 12px;
-    font-size: 1rem;
+    padding: 15px;
+    font-size: 1.1rem;
+    text-transform: uppercase;
 }
 
 tbody td {
-    padding: 12px;
+    padding: 15px;
     border-bottom: 1px solid #ddd;
+    font-size: 1rem;
 }
 
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
 
 .unpaid {
     background-color: #ffe6e6;
 }
 
 a {
-    text-decoration: none;
     color: #1e90ff;
+    text-decoration: none;
     font-weight: bold;
 }
 
 a:hover {
     text-decoration: underline;
+    color: #4682b4;
 }
 
+td a {
+    margin-right: 10px;
+}
 
+tbody td {
+    padding: 12px;
+    text-align: center;
+}
+
+tbody tr {
+    border-bottom: 1px solid #ddd;
+}
 body {
     display: flex;
     flex-direction: column;
@@ -151,12 +170,12 @@ body {
 
 .card {
     background-color: #fff;
-    padding: 20px;
+    padding: 30px;
     border-radius: 20%;
     box-shadow: 5px 4px 10px rgba(0, 0, 0, 0.8);
     max-width: 600px;
     width: 100%;
-    margin: 0 auto;
+    margin: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -204,9 +223,25 @@ body {
 }
 
 .btn:hover {
-    background-color: #4682b4;
+    background-color: #590202;
 }
 
+.btn-accueil {
+    background-color: #ffffff;
+    color: #1e90ff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-accueil:hover {
+    background-color: #f0f0f0;
+    color: #1e90ff;
+}
 .container {
     max-width: 800px;
     margin: 0 auto;

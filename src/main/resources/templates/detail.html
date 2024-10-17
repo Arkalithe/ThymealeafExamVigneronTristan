@@ -33,7 +33,20 @@
                     <span th:text="${ligne.quantity.multiply(ligne.prixHt)}">Prix Total</span>
                 </li>
             </ul>
+            <div class="divider"></div>
+            <div>
+                <p>Règlement par virement bancaire au plus tard le
+                    <span th:text="${dateLimitePaiement}">2024-01-08</span>
+                </p>
+            </div>
 
+            <div>
+                <p>Tout retard de paiment d'une quelconque facture fait courir, immediatment et de plain droit, des
+                    intérêts de retard calculé au taux directeur de la  BCE majoré de 7 points  jusqu'au paiment
+                    effectif et integrale.
+
+                </p>
+            </div>
             <div class="divider"></div>
             <div class="invoice-actions">
                 <a th:href="@{/ligne/{id}(id=${facture.id})}" class="btn">Voir les lignes</a>

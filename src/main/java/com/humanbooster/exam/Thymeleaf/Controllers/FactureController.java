@@ -19,6 +19,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 
@@ -49,8 +51,19 @@ public class FactureController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Facture inexistante");
         }
 
+
+        GregorianCalendar dateLimite = (GregorianCalendar) facture.getDateFacture().clone();
+
+
+
+        dateLimite.add(GregorianCalendar.DAY_OF_YEAR, 90);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String dateLimitePaiement = dateFormat.format(dateLimite.getTime());
+
         ModelAndView mv = new ModelAndView("detail");
         mv.addObject("facture", facture);
+        mv.addObject("dateLimitePaiement", dateLimitePaiement);
 
 
         return  mv;
