@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <title>Lignes de Facture</title>
+</head>
+<body class="grid-body">
+<div class="grid-container"> </div>
+<header th:replace="~{fragments/header :: header}"></header>
+<div  class="grid-content">
+    <div class="content-wrapper">
+        <h1 class="title-facture">Lignes de facture pour la Facture n°<span th:text="${facture.id}">1</span></h1>
+        <div class="table-wrapper ">
+            <table class="t">
+                <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Quantité</th>
+                    <th>Prix</th>
+                    <th>TVA</th>
+                    <th>Prix Total HT</th>
+                    <th>Prix Total TTC</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ligne : ${facture.lignes}">
+                    <td th:text="${ligne.designation}">Description de l'article</td>
+                    <td th:text="${#numbers.formatDecimal(ligne.quantity, 1, 2)}">1</td>
+                    <td th:text="${#numbers.formatDecimal(ligne.prixHt, 1, 2)}+' EUR'">100</td>
+                    <td th:text="${#numbers.formatDecimal(ligne.tva.taux * 100, 1, 2)}+'%'">10%</td>
+                    <td th:text="${#numbers.formatDecimal(ligne.quantity.multiply(ligne.prixHt), 1, 2)} +' EUR'">100</td>
+                    <td th:text="${#numbers.formatDecimal(ligne.quantity.multiply(ligne.prixHt).multiply(1 + ligne.tva.taux), 1, 2)} +' EUR'">110</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="totals-section">
+            <p><strong>Total (HT) :</strong> <span th:text="${#numbers.formatDecimal(totalHT, 1, 2)}">1000</span> EUR</p>
+            <p><strong>Total (TTC) :</strong> <span th:text="${#numbers.formatDecimal(totalTTC, 1, 2)}">1100</span> EUR</p>
+        </div>
+
+        <div class="invoice-actions">
+            <a th:href="@{/ligne/{id}/ajout(id=${facture.id})}" class="btn">Ajouter une ligne</a>
+            <a th:href="@{/detail/{id}(id=${facture.id})}" class="btn">Retour</a>
+        </div>
+    </div>
+
+</div>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

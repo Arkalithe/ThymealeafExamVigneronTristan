@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{css/main.css}"/>
+    <title>Facture PDF</title>
+</head>
+<body>
+<div class="pdf-container">
+    <h1 class="pdf-h1">Facture n°<span th:text="${facture.id}"></span></h1>
+    <p class="pdf-p">Client : <span th:text="${facture.client.raisonSociale}"></span></p>
+    <p class="pdf-p">Date : <span th:text="${#dates.format(facture.dateFacture.time, 'yyyy-MM-dd')}"></span></p>
+
+    <h2 class="pdf-h2">Lignes de la facture</h2>
+    <table class="pdf-table">
+        <thead>
+        <tr>
+            <th>Description</th>
+            <th>Quantité</th>
+            <th>Prix Unitaire (HT)</th>
+            <th>Prix Total (HT)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ligne : ${facture.lignes}">
+            <td th:text="${ligne.designation}"></td>
+            <td th:text="${ligne.quantity}"></td>
+            <td th:text="${ligne.prixHt}"></td>
+            <td th:text="${ligne.quantity.multiply(ligne.prixHt)}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p class="pdf-total">Total (HT) : <span th:text="${totalHT}"></span> EUR</p>
+    <p class="pdf-total">Total (TTC) : <span th:text="${totalTTC}"></span> EUR</p>
+
+    <div class="pdf-signature">
+        <p>Signature :</p>
+        <p>______________________</p>
+    </div>
+
+    <div class="pdf-footer">
+        <p>Généré par le système de facturation - [Nom de l'entreprise]</p>
+    </div>
+</div>
+</body>
+</html>

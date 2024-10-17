@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <title>Ajouter une nouvelle ligne</title>
+</head>
+<body class="grid-body">
+<div class="grid-container">
+    <header th:replace="~{fragments/header :: header}" class="grid-header"></header>
+    <div class="grid-content">
+        <div class="content-wrapper">
+            <div class="form-wrapper">
+                <h1> Facture n°<span th:text="${facture.id}"></span></h1>
+
+                <form th:action="@{/ligne/{id}/ajout(id=${facture.id})}" method="post" th:object="${ligneFacture}">
+                    <div>
+                        <label for="designation">Désignation :</label>
+                        <input type="text" id="designation" th:field="*{designation}" required>
+                        <span th:if="${#fields.hasErrors('designation')}" th:errors="*{designation}">Description invalide</span>
+                    </div>
+
+                    <div>
+                        <label for="quantity">Quantité :</label>
+                        <input type="number" id="quantity" th:field="*{quantity}" required>
+                        <span th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}">Quantité invalide</span>
+                    </div>
+
+                    <div>
+                        <label for="prixHt">Prix unitaire HT :</label>
+                        <input type="number" id="prixHt" step="0.01" th:field="*{prixHt}" required>
+                        <span th:if="${#fields.hasErrors('prixHt')}" th:errors="*{prixHt}">Prix invalide</span>
+                    </div>
+
+                    <div>
+                        <label for="tva">TVA :</label>
+                        <select id="tva" th:field="*{tva.id}" required>
+                            <option th:each="tva : ${tvas}" th:value="${tva.id}" th:text="${tva.libelle}"></option>
+                        </select>
+                        <span th:if="${#fields.hasErrors('tva')}" th:errors="*{tva}">TVA invalide</span>
+                    </div>
+
+                    <button type="submit" class="btn">Ajouter une ligne</button>
+                </form>
+            </div>
+            <a th:href="@{/ligne/{id}(id=${facture.id})}" class="btn">Retour</a>
+        </div>
+    </div>
+    <footer th:replace="~{fragments/footer :: footer}" class="grid-footer"></footer>
+</div>
+</body>
+</html>

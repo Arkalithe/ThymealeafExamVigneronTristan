@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de la Facture</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body class="grid-body">
+<div class="grid-container">
+    <header th:replace="~{fragments/header :: header}"></header>
+
+    <div class="grid-content">
+        <div class="card">
+            <h1>Détails de la Facture : <span th:text="${facture.libelle}">Titre de la Facture</span></h1>
+            <div class="invoice-overview">
+                <p><strong>Client :</strong> <span th:text="${facture.client.raisonSociale} ">Nom du Client</span></p>
+                <p><strong>Ville :</strong> <span th:text="${facture.client.codePostal}
+                  +' ' + ${facture.client.ville}">Ville</span></p>
+                <p><strong>Address :</strong> <span th:text="${facture.client.numeroRue}+' ' + ${facture.client.rue}">Address</span></p>
+                <p><strong>Émetteur :</strong> <span th:text="${facture.emeteur.raisonSociale}">Nom de l'Émetteur</span></p>
+                <p><strong>Date de la Facture :</strong> <span th:text="${#dates.format(facture.dateFacture.time, 'yyyy-MM-dd')}">2024-10-10</span></p>
+                <p><strong>Date de Paiement :</strong> <span th:text="${facture.datePayment != null ? #dates.format(facture.datePayment.time, 'yyyy-MM-dd') : 'Non payée'}">Non payée</span></p>
+            </div>
+
+            <div class="divider"></div>
+            <h2>Lignes de la Facture</h2>
+            <ul class="invoice-lines">
+                <li th:each="ligne : ${facture.lignes}">
+                    <span th:text="${ligne.designation}">Description de l'article</span> -
+                    <span th:text="${ligne.quantity}">Quantité</span> x
+                    <span th:text="${ligne.prixHt}">Prix</span> =
+                    <span th:text="${ligne.quantity.multiply(ligne.prixHt)}">Prix Total</span>
+                </li>
+            </ul>
+
+            <div class="divider"></div>
+            <div class="invoice-actions">
+                <a th:href="@{/ligne/{id}(id=${facture.id})}" class="btn">Voir les lignes</a>
+                <a th:href="@{/pdf/{id}(id=${facture.id})}" class="btn">Exporter en PDF</a>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <title>Accueil Facture</title>
+</head>
+<body class="grid-body">
+<div class="grid-container">
+    <header th:replace="~{fragments/header :: header}"></header>
+
+    <div class="grid-content">
+        <div class="content-wrapper">
+
+            <h2 class="title-facture">Toutes les Factures</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Client</th>
+                        <th>Date de Facture</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="facture : ${factures}" th:classappend="${facture.datePayment == null} ? 'unpaid'">
+                        <td th:text="${facture.id}">1</td>
+                        <td th:text="${facture.client.raisonSociale}">Nom du Client</td>
+                        <td th:text="${#dates.format(facture.dateFacture.time, 'yyyy-MM-dd')}">2024-10-10</td>
+                        <td th:text="${facture.datePayment == null ? 'Non payée' : 'Payée'}">Non payée</td>
+                        <td>
+                            <a th:href="@{/detail/{id}(id=${facture.id})}">Détails</a> |
+                            <a th:href="@{/pdf/{id}(id=${facture.id})}">Télécharger PDF</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+</div>
+</body>
+</html>
