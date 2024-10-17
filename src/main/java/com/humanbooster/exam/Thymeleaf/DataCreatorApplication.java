@@ -129,6 +129,7 @@ public class DataCreatorApplication {
                 lf21.setDesignation("Frais de déplacement (nuité)");
                 lf21.setPrixHt(BigDecimal.valueOf(400.50));
                 lf21.setFacture(facture2);
+                ligneFactureRepositor.save(lf21);
 
             }
 
